@@ -38,9 +38,20 @@ namespace ConsoleApp
             //D:\Programming\Home\VS\ConsoleApp\ConsoleApp\test.cs
             //string text = File.ReadAllText(@"D:\\Programming\\Home\\VS\\ConsoleApp\\ConsoleApp\\test.cs");
             SyntaxTree tree = CSharpSyntaxTree.ParseText(text);
-            SwapForWithWhileChecker swapForWithWhileChecker = new SwapForWithWhileChecker();
 
-            SyntaxNode newTree = swapForWithWhileChecker.Check(tree);
+            var Mscorlib = MetadataReference.CreateFromFile(typeof(object).Assembly.Location);
+            var compilation = CSharpCompilation.Create("RoslynRewrite",
+              syntaxTrees: new[] { tree },
+              references: new[] { Mscorlib });
+            var model = compilation.GetSemanticModel(tree);
+
+            //SwapForWithWhileChecker swapForWithWhileChecker = new SwapForWithWhileChecker();
+
+            //SyntaxNode newTree = swapForWithWhileChecker.Check(tree, model);
+
+            VarChecker varChecker = new VarChecker();
+            SyntaxNode newTree = varChecker.Check(tree, model);
+
             var tree1 = CSharpSyntaxTree.ParseText(newTree.ToString());
             var root = tree1.GetRoot().NormalizeWhitespace();
             var ret = root.ToFullString();

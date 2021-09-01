@@ -14,7 +14,8 @@ namespace ConsoleApp
             }
 
             int[] values = { 10, 20, 30, 40 };
-
+            var x = 3;
+            var y = 11.0;
 
             for (int i = 0; i < Limit(2, values); i++)
             {
@@ -28,7 +29,7 @@ namespace ConsoleApp
                 }
                 Console.WriteLine("LIMIT 2: " + values[i]);
             }
-
+            var s = "1234";
             for (int i = 0; i < Limit(10, values); i++)
             {
                 Console.WriteLine("LIMIT 10: " + values[i]);
