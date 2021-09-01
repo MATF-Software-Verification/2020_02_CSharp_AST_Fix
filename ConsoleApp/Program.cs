@@ -45,12 +45,15 @@ namespace ConsoleApp
               references: new[] { Mscorlib });
             var model = compilation.GetSemanticModel(tree);
 
+            #region Swap for with while
             //SwapForWithWhileChecker swapForWithWhileChecker = new SwapForWithWhileChecker();
-
             //SyntaxNode newTree = swapForWithWhileChecker.Check(tree, model);
+            #endregion
 
-            VarChecker varChecker = new VarChecker();
+            #region Swap var with type
+            SwapVarWithExplicitTypeChecker varChecker = new SwapVarWithExplicitTypeChecker();
             SyntaxNode newTree = varChecker.Check(tree, model);
+            #endregion
 
             var tree1 = CSharpSyntaxTree.ParseText(newTree.ToString());
             var root = tree1.GetRoot().NormalizeWhitespace();

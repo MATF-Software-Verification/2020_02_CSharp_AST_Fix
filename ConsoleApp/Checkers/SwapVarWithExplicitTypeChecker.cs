@@ -5,12 +5,12 @@ using System.Text;
 
 namespace ConsoleApp.Checkers
 {
-    public class VarChecker : IChecker
+    public class SwapVarWithExplicitTypeChecker : IChecker
     {
 
         public SyntaxNode Check(SyntaxTree tree, SemanticModel semanticModel)
         {
-            var rewritten = new VarRewriter(semanticModel).Visit(tree.GetRoot());
+            var rewritten = new RewriterVarToExplicitType(semanticModel).Visit(tree.GetRoot());
             return rewritten;
         }
     }

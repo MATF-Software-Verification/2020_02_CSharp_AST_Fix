@@ -7,11 +7,11 @@ using System.Text;
 
 namespace ConsoleApp.Checkers
 {
-    class VarRewriter: CSharpSyntaxRewriter
+    class RewriterVarToExplicitType: CSharpSyntaxRewriter
     {
         private readonly SemanticModel SemanticModel;
 
-        public VarRewriter(SemanticModel model)
+        public RewriterVarToExplicitType(SemanticModel model)
         {
             SemanticModel = model;
         }
