@@ -7,7 +7,7 @@ namespace ConsoleApp.Checkers
 {
     public class SwapForWithWhileChecker : IChecker
     {
-        public SyntaxNode Check(SyntaxTree tree)
+        public SyntaxNode Check(SyntaxTree tree, SemanticModel semanticModel)
         {
             var rewritten = new RewriterForToWhile().Visit(tree.GetRoot());
             return rewritten;

@@ -7,6 +7,6 @@ namespace ConsoleApp
 {
     public interface IChecker
     {
-        public SyntaxNode Check(SyntaxTree tree);
+        public SyntaxNode Check(SyntaxTree tree, SemanticModel semanticModel);
     }
 }
