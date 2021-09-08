@@ -13,9 +13,16 @@ namespace ConsoleApp
                 return Math.Min(max, array.Length);
             }
 
+            
+
             int[] values = { 10, 20, 30, 40 };
             var x = 3;
             var y = 11.0;
+
+            //
+            var z = x > y ? x - y : y - x;
+            Console.WriteLine(z);
+            //
 
             for (int i = 0; i < Limit(2, values); i++)
             {

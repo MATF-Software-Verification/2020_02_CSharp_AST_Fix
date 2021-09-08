@@ -55,6 +55,12 @@ namespace ConsoleApp
             SyntaxNode newTree = varChecker.Check(tree, model);
             #endregion
 
+            #region Swap ternary operator with ifelse
+            //SwapTernaryWithIfElseChecker ternaryChecker = new SwapTernaryWithIfElseChecker();
+            //SyntaxNode newTree = ternaryChecker.Check(tree, model);
+            #endregion
+
+
             var tree1 = CSharpSyntaxTree.ParseText(newTree.ToString());
             var root = tree1.GetRoot().NormalizeWhitespace();
             var ret = root.ToFullString();
