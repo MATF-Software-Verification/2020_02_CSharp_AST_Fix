@@ -29,6 +29,8 @@ Opcije i opisi transformacija dati su u narednoj tabeli:
 | -stie | zamena naredbe *switch* naredbom *if-else* |
 | -ttie | zamena ternarnog operatora naredbom *if-else* |
 
+![](CShartASTFixRunApp.gif)
+
 -------------------------------------
 
 ## (3) Ulazni primeri koji se mogu koristiti za upotrebu i testiranje programa
