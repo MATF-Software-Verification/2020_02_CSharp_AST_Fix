@@ -2,7 +2,7 @@
 
 -------------------------------------
 
-## (1) Prevodjenje i pokretanje projekta (neophodne biblioteke, alati i zavisnosti)
+## (1) Prevođenje i pokretanje projekta (neophodne biblioteke, alati i zavisnosti)
 
 Aplikacija je rađena u programskom jeziku C#, u Visual Studio okruženju, na Linux (Ubuntu) operativnom sistemu. Za pokretanje aplikacije potrebno je instalirati Visual Studio okruženje. Projekat je moguće uvesti u Visual Studio okruženje i pokrenuti aplikaciju pritiskom na tastere Ctrl+F5.
 
@@ -22,10 +22,10 @@ Opcije i opisi transformacija dai su u narednoj tabeli:
 
 | Opcija | Transformacija |
 | ------------- | ------------- |
-| -ftw | Zamena for petlje while petljom |
-| -vtet | Zamena ključne reči var eksplicitnim tipom |
-| -stie | Zamena naredbe switch naredbom if-else |
-| -ttie | Zamena ternarnog operatora naredbom if-else |
+| -ftw | zamena for petlje while petljom |
+| -vtet | zamena ključne reči var eksplicitnim tipom |
+| -stie | zamena naredbe switch naredbom if-else |
+| -ttie | zamena ternarnog operatora naredbom if-else |
 
 -------------------------------------
 
@@ -48,9 +48,7 @@ namespace ConsoleApp
             {
                 return Math.Min(max, array.Length);
             }
-
             
-
             int[] values = { 10, 20, 30, 40 };
             var x = 3;
             var y = 11.0;
@@ -72,6 +70,7 @@ namespace ConsoleApp
                 }
                 Console.WriteLine("LIMIT 2: " + values[i]);
             }
+            
             var s = "1234";
             for (int i = 0; i < Limit(10, values); i++)
             {
