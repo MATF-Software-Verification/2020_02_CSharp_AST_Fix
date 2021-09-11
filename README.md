@@ -1,6 +1,6 @@
 # CSharp AST Fix
 
-Zadatak koji je rešavan u okviru ovog projekta je analiza koda u jeziku \textit{C\#}, detektovanje i popravka neispravnih ili ne dovoljno dobrih sintaksnih konstrukata. Aplikacija vrši zamenu nepoželjnih konstrukata onima koji su pozeljniji, tako da funkcionalnost koda ostane nepromenjena.
+Zadatak koji je rešavan u okviru ovog projekta je analiza koda u jeziku C#, detektovanje i popravka neispravnih ili ne dovoljno dobrih sintaksnih konstrukata. Aplikacija vrši zamenu nepoželjnih konstrukata onima koji su pozeljniji, tako da funkcionalnost koda ostane nepromenjena.
 
 -------------------------------------
 
