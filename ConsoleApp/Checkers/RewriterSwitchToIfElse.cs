@@ -12,43 +12,49 @@ namespace ConsoleApp.Checkers
     {
         public override SyntaxNode VisitSwitchStatement(SwitchStatementSyntax node)
         {
-            var result = (SwitchStatementSyntax)base.VisitSwitchStatement(node);
-            // var declarationNode = SyntaxFactory.ParseStatement($"{(syntaxNode.Declaration != null ? syntaxNode.Declaration.ToString() + ";" : "")}");
-            // var statement = syntaxNode.Statement.ToString();
+            var syntaxNode = (SwitchStatementSyntax)base.VisitSwitchStatement(node);
 
-            // var whileNode = SyntaxFactory.WhileStatement(
-                // syntaxNode.Condition ?? SyntaxFactory.ParseExpression("true"),
-                // SyntaxFactory.ParseStatement(
-                    // $"{{{FixParenthesis(statement)}{(syntaxNode.Incrementors.Count != 0 ? syntaxNode.Incrementors.ToString().Replace(',', ';') + ";" : "")}\n}}")
-                // );
-            // var newNode = SyntaxFactory.ParseStatement($"{{{declarationNode}\n{whileNode}}}");
-            // return newNode;
+            var expression = syntaxNode.Expression.ToString();
+            var labels = syntaxNode.Sections.Select(s => s.Labels.ToArray());
 
-            // conversion
-            // find true statement
-            var trueSection = node.Sections
-                    .First(f => f.Labels.First().ToString().Contains("true"));
-            var falseSection = node.Sections
-                    .First(f => f.Labels.First().ToString().Contains("false"));
+            var statements = syntaxNode.Sections.Select(s => s.Statements.Where(statement => statement.Kind() != SyntaxKind.BreakStatement));
+            StatementSyntax newNode = null;
+            if (labels.Count() == 1 && labels.ElementAt(0).Select(l => l.Kind()).Contains(SyntaxKind.DefaultSwitchLabel))
+            {
+                newNode = SyntaxFactory.ParseStatement(SyntaxFactory.IfStatement(SyntaxFactory.ParseExpression("true"),
+                    SyntaxFactory.Block(SyntaxFactory.ParseStatement(statements.ElementAt(0).Aggregate("", (x, y) => x.ToString() + " " + y.ToString())))).ToString());
+            }
+            else
+            {
+                newNode = SyntaxFactory.ParseStatement(CreateIfStatement(expression, labels, statements));
+            }
 
-            var trueStatement = trueSection.Statements.Count == 1
-                            ? trueSection.Statements.First()
-                            : SyntaxFactory.Block(trueSection.Statements);
-            var falseStatement = falseSection.Statements.Count == 1
-                            ? falseSection.Statements.First()
-                            : SyntaxFactory.Block(falseSection.Statements);
-
-            var ifStatement = SyntaxFactory.IfStatement(node.Expression,
-                trueStatement,
-                SyntaxFactory.ElseClause(falseStatement));
-
-            // remove all breaks
-            var breakRemover = new BreakRemover();
-
-            result = (SwitchStatementSyntax)breakRemover.Visit(ifStatement);
-
-            return result;
+            return newNode;
         }
+
+
+        private string CreateIfStatement(string expression, IEnumerable<IEnumerable<SwitchLabelSyntax>> labels, IEnumerable<IEnumerable<StatementSyntax>> statements)
+        {
+            var labelValues = labels.Select(l => l.Select(lb => lb.Kind() == SyntaxKind.DefaultSwitchLabel ? "true" : ((CaseSwitchLabelSyntax)lb).Value.ToString()));
+            var labelsWithoutCurrent = labels.Skip(1);
+            var statementsWithoutCurrent = statements.Skip(1);
+            var wat = statementsWithoutCurrent.FirstOrDefault().FirstOrDefault();
+            IfStatementSyntax ifStatement = SyntaxFactory.IfStatement(
+                SyntaxFactory.ParseExpression(
+                    labelValues.ElementAt(0).Count() != 1 
+                        ? labelValues.ElementAt(0).Aggregate((x, y) =>  expression + "==" + x + " || " + expression + "==" + y)
+                        : labelValues.ElementAt(0).Select(l => expression + "==" + l.ToString()).First()),
+                SyntaxFactory.Block(SyntaxFactory.ParseStatement(statements.ElementAt(0).Aggregate("", (x, y) => x.ToString() + " " + y.ToString()))),
+                labelsWithoutCurrent.Count() != 0 && statementsWithoutCurrent.FirstOrDefault().FirstOrDefault() != null
+                    ? labelsWithoutCurrent.ElementAt(0).Select(l => l.Kind()).Contains(SyntaxKind.DefaultSwitchLabel)
+                        ? SyntaxFactory.ElseClause(SyntaxFactory.ParseStatement("{" + statementsWithoutCurrent.ElementAt(0).Aggregate("", (x, y) => x.ToString() + " " + y.ToString()) + "}"))
+                        : SyntaxFactory.ElseClause(SyntaxFactory.ParseStatement(" " + CreateIfStatement(expression, labelsWithoutCurrent, statementsWithoutCurrent)))
+                    : null
+                );
+
+            return ifStatement.ToString();
+        }
+
     }
 
 }
