@@ -1,7 +1,7 @@
 
 # CSharp AST Fix
 
-Zadatak koji je rešavan u okviru ovog projekta je analiza koda u jeziku *C#*, detektovanje i popravka neispravnih ili ne dovoljno dobrih sintaksnih konstrukata. Aplikacija vrši zamenu nepoželjnih konstrukata onima koji su pozeljniji, tako da funkcionalnost koda ostane nepromenjena.
+Zadatak koji je rešavan u okviru ovog projekta je analiza koda u jeziku *C#*, detektovanje i popravka neispravnih ili nedovoljno dobrih sintaksnih konstrukata. Aplikacija vrši zamenu nepoželjnih konstrukata onima koji su poželjniji, tako da funkcionalnost koda ostane nepromenjena.
 
 -------------------------------------
 
@@ -89,7 +89,10 @@ namespace ConsoleApp
 # Članovi tima
 
 Dotlić Aleksandra 1077/2020
+
 Đaković Branko 1083/2019
+
 Pejkić Jovana 1089/2020
+
 Petrović Ana 1073/2020
 
