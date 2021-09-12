@@ -5,6 +5,7 @@ using System.Text;
 
 namespace ConsoleApp.Checkers
 {
+    [CommandLineArgument("-varToType")]
     public class SwapVarWithExplicitTypeChecker : IChecker
     {
 

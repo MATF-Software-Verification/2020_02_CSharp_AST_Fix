@@ -45,27 +45,29 @@ namespace ConsoleApp
               references: new[] { Mscorlib });
             var model = compilation.GetSemanticModel(tree);
 
-            #region Swap for with while
-            //SwapForWithWhileChecker swapForWithWhileChecker = new SwapForWithWhileChecker();
-            //SyntaxNode newTree = swapForWithWhileChecker.Check(tree, model);
-            #endregion
+            var type = typeof(IChecker);
+            var types = AppDomain.CurrentDomain.GetAssemblies()
+                .SelectMany(s => s.GetTypes())
+                .Where(p => type.IsAssignableFrom(p));
 
-            #region Swap var with type
-            SwapVarWithExplicitTypeChecker varChecker = new SwapVarWithExplicitTypeChecker();
-            SyntaxNode newTree = varChecker.Check(tree, model);
-            #endregion
-
-            #region Swap ternary operator with ifelse
-            //SwapTernaryWithIfElseChecker ternaryChecker = new SwapTernaryWithIfElseChecker();
-            //SyntaxNode newTree = ternaryChecker.Check(tree, model);
-            #endregion
-
+            SyntaxNode newTree = null;
+            foreach (var arg in args)
+            {
+                var pairedChecker = types.FirstOrDefault(type => type.CustomAttributes.Where(att => att.ConstructorArguments.Where(constArg => constArg.Value.ToString() == arg).Count() != 0).Count() != 0);
+                if (pairedChecker != null)
+                {
+                    IChecker instance = (IChecker)Activator.CreateInstance(pairedChecker);
+                    newTree = instance.Check(tree, model);
+                }  
+            }
 
             var tree1 = CSharpSyntaxTree.ParseText(newTree.ToString());
             var root = tree1.GetRoot().NormalizeWhitespace();
             var ret = root.ToFullString();
 
             await File.WriteAllTextAsync(outputPath, ret);
+            //Console.WriteLine(ret);
+
         }
 
 

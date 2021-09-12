@@ -13,25 +13,6 @@ namespace ConsoleApp.Checkers
     class RewriterRemoveEmptyStatements : CSharpSyntaxRewriter
     {
 
-        //public override SyntaxNode VisitConditionalExpression(ConditionalExpressionSyntax node)
-        //{
-        //    var syntaxNode = (ConditionalExpressionSyntax)base.VisitConditionalExpression(node);
-        //    var whenTrue = syntaxNode.WhenTrue;
-        //    var whenFalse = syntaxNode.WhenFalse;
-        //    var condition = syntaxNode.Condition;
-
-
-        //    var ifNode = SyntaxFactory.IfStatement(condition,
-        //                                           SyntaxFactory.ExpressionStatement(whenTrue),
-        //                                           SyntaxFactory.ElseClause(
-        //                                                SyntaxFactory.ExpressionStatement(whenFalse))
-        //                                           );
-
-        //    return ifNode;
-        //}
-
-
-
         public override SyntaxNode VisitEmptyStatement(EmptyStatementSyntax node)
         {
             if (node.Parent.Kind() == SyntaxKind.WhileStatement 

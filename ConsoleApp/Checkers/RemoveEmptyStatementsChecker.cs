@@ -5,12 +5,13 @@ using System.Text;
 
 namespace ConsoleApp.Checkers
 {
-    public class SwapEmptyStatement : IChecker
+    [CommandLineArgument("-removeEmpty")]
+    public class RemoveEmptyStatementsChecker : IChecker
     {
-
         public SyntaxNode Check(SyntaxTree tree, SemanticModel semanticModel)
         {
-            var rewritten = new RewriterRemoveEmptyStatement().Visit(tree.GetRoot());
+            var root = tree.GetRoot();
+            var rewritten = new RewriterRemoveEmptyStatements().Visit(root);
             return rewritten;
         }
     }

@@ -5,6 +5,7 @@ using System.Text;
 
 namespace ConsoleApp.Checkers
 {
+    [CommandLineArgument("-forToWhile")]
     public class SwapForWithWhileChecker : IChecker
     {
         public SyntaxNode Check(SyntaxTree tree, SemanticModel semanticModel)
