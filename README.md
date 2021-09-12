@@ -1,3 +1,4 @@
+
 # CSharp AST Fix
 
 Zadatak koji je rešavan u okviru ovog projekta je analiza koda u jeziku *C#*, detektovanje i popravka neispravnih ili ne dovoljno dobrih sintaksnih konstrukata. Aplikacija vrši zamenu nepoželjnih konstrukata onima koji su pozeljniji, tako da funkcionalnost koda ostane nepromenjena.
@@ -18,16 +19,16 @@ Nakon pokretanja aplikacije otvara se konzola, gde treba uneti:
 
 - putanju do izlaznog *.cs* fajla u kome će transformisani kod biti upisan
 
-- opciju željene transformacije (-ftw, -vtet, -stie ili -ttie)
+- argument komandne linije, tj. opciju željene transformacije (-forToWhile, -varToType, -switchToIf ili -removeEmpty)
 
 Opcije i opisi transformacija dati su u narednoj tabeli:
 
 | Opcija | Transformacija |
 | ------------- | ------------- |
-| -ftw | zamena *for* petlje *while* petljom |
-| -vtet | zamena ključne reči *var* eksplicitnim tipom |
-| -stie | zamena naredbe *switch* naredbom *if-else* |
-| -ttie | zamena ternarnog operatora naredbom *if-else* |
+| -forToWhile | zamena *for* petlje *while* petljom |
+| -varToType | zamena ključne reči *var* eksplicitnim tipom |
+| -switchToIf | zamena naredbe *switch* naredbom *if-else* |
+| -removeEmpty | izbacivanje praznih naredbi |
 
 ![](CShartASTFixRunApp.gif)
 
@@ -85,5 +86,10 @@ namespace ConsoleApp
 }
 ```
 
+# Članovi tima
 
+Dotlić Aleksandra 1077/2020
+Đaković Branko 1083/2019
+Pejkić Jovana 1089/2020
+Petrović Ana 1073/2020
 
