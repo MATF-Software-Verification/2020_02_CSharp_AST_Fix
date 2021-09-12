@@ -6,7 +6,7 @@
 
 \usepackage{color}
 \usepackage{url}
-\usepackage[T2A]{fontenc} % enable Cyrillic fonts
+%\usepackage[T2A]{fontenc} % enable Cyrillic fonts
 \usepackage[utf8]{inputenc} % make weird characters work
 \usepackage{graphicx}
 
@@ -17,20 +17,20 @@
 \hypersetup{colorlinks,citecolor=green,filecolor=green,linkcolor=blue,urlcolor=blue}
 
 %\newtheorem{primer}{Пример}[section] %ćirilični primer
-\newtheorem{primer}{Primer}[section]
+%\newtheorem{primer}{Primer}[section]
+
+
+%\definecolor{mygreen}{rgb}{0,0.6,0}
+%\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+%\definecolor{mymauve}{rgb}{0.58,0,0.82}
 
 \usepackage{listings}
-\definecolor{mygreen}{rgb}{0,0.6,0}
-\definecolor{mygray}{rgb}{0.5,0.5,0.5}
-\definecolor{mymauve}{rgb}{0.58,0,0.82}
-
-
 \usepackage{xcolor}
 \definecolor{verde}{rgb}{0.25,0.5,0.35}
 \definecolor{jpurple}{rgb}{0.5,0,0.35}
 \definecolor{darkgreen}{rgb}{0.0, 0.2, 0.13}
 \definecolor{white}{rgb}{1, 1, 1}
-\usepackage{listings}
+%\usepackage{listings}
 
 \newcommand{\CSharp}{
 \lstset{
@@ -103,7 +103,7 @@ Tokom razvoja softvera neretko dolazi do propusta u arhitekturi, pisanju koda, t
 \section{Opis problema}
 \label{sec:opis_problema}
 
-Zadatak koji je rešavan u okviru ovog projekta je analiza koda u jeziku \textit{C\#}, detektovanje i popravka neispravnih ili ne dovoljno dobrih sintaksnih konstrukata. Nakon konstantovanja prolema, korisniku neće biti (samo) prijavljeno upozorenje i sugestija kako se kod može popraviti, već će se vršiti uklanjanje ili zamena nepoželjnih konstrukata onima koji su pozeljniji. Uz sve ovo, funkcionalnost koda ne sme biti promenjena.
+Zadatak koji je rešavan u okviru ovog projekta je analiza koda u jeziku \textit{C\#}, detektovanje i popravka neispravnih ili nedovoljno dobrih sintaksnih konstrukata. Nakon konstantovanja problema, korisniku neće biti (samo) prijavljeno upozorenje i sugestija kako se kod može popraviti, već će se vršiti uklanjanje ili zamena nepoželjnih konstrukata onima koji su poželjniji. Uz sve ovo, funkcionalnost koda ne sme biti promenjena.
 
 Cilj ovog rada je kreiranje kvalitetnijeg koda, bez suvišnih delova, kompleksnih fragmenata i nečitljive sintakse. To je način da se izvorni kod "očisti" i tako smanji mogućnost za pojavu grešaka.
 
@@ -142,7 +142,7 @@ Rozlin je platforma koju čini skup kompajlera otvorenog koda (eng. \textit{open
   \hline
   \textbf{\textit{Work-space APIs}} & dozvoljavaju korišćenje plugina za, na primer, pronalaženje referenci promenljive ili oblikovanja koda (eng. \textit{code formatting})  \\ 
   \hline
-  \textbf{\textit{Compiler APIs}} & dopustaju jos elegantniju analizu izvornog koda, izlaganjem (odnosno upućivanjem) direktnih poziva za izvođenje sintaksnog stabla i analizom toka vezivanja (eng. \textit{binding flow analysis})  \\ 
+  \textbf{\textit{Compiler APIs}} & dopuštaju još elegantniju analizu izvornog koda, izlaganjem (odnosno upućivanjem) direktnih poziva za izvođenje sintaksnog stabla i analizom toka vezivanja (eng. \textit{binding flow analysis})  \\ 
   \hline
 \end{tabular}
 %\caption{Table caption} %TODO caption ne radi
@@ -177,7 +177,7 @@ Na slici \ref{fig:CSharpSyntaxRewriter} je prikazana hijerarhija klasa koje su k
 \label{fig:CSharpSyntaxRewriter}
 \end{figure}
 
-Na slici \ref{fig:IChecker} su prikazani razliciti čekeri. Ove klase naseđuju \textit{IChecker} klasu i implementiraju metod \textit{Check}.
+Na slici \ref{fig:IChecker} su prikazani različiti čekeri. Ove klase naseđuju \textit{IChecker} klasu i implementiraju metod \textit{Check}.
 
 \begin{figure}[h!]
 \begin{center}
@@ -199,7 +199,7 @@ Osnovna ideja je da se u \textit{.cs} fajlu, čija se putanja dobija od strane k
 \item RewriterTernaryToIfElse - zamenjuje ternarni operator if-else naredbom
 \end{itemize}
 
-Sam program se sastoji od nekoliko čekera (eng. \textit{Chekers}) i "prepisivača", gde čekeri pozivaju metod \textit{Visit} nad instancom neke od \textit{Rewriter} klasa. Klase \textit{SwapForWithWhileChecker} i \textit{RewriterForToWhile} su opisane u podsekciji \ref{subsec:for}, klase \textit{SwapVarWithExplicitTypeChecker} i \textit{RewriterVarToExplicitType} u podsekciji \ref{subsec:var}, klase \textit{SwapSwitchWithIfElseChecker} i \textit{RewriterSwitchToIfElse} u podsekciji \ref{subsec:switch}, a klase \textit{SwapTernaryWithIfElse} i \textit{RewriterTernaryToIfElse} u podsekciji \ref{subsec:ternarni}. Kod je organizovan u nabrojanim klasama kako bi bio čitljiviji i tako da svaka klasa predstavljala jednu celinu.
+Sam program se sastoji od nekoliko čekera (eng. \textit{Chekers}) i "prepisivača", gde čekeri pozivaju metod \textit{Visit} nad instancom neke od \textit{Rewriter} klasa. Klase \textit{SwapForWithWhileChecker} i \textit{RewriterForToWhile} su opisane u podsekciji \ref{subsec:for}, klase \textit{SwapVarWithExplicitTypeChecker} i \textit{RewriterVarToExplicitType} u podsekciji \ref{subsec:var}, klase \textit{SwapSwitchWithIfElseChecker} i \textit{RewriterSwitchToIfElse} u podsekciji \ref{subsec:switch}, a klase \textit{SwapTernaryWithIfElse} i \textit{RewriterTernaryToIfElse} u podsekciji \ref{subsec:ternarni}. Kod je organizovan u nabrojanim klasama kako bi bio čitljiviji i tako da svaka klasa predstavlja jednu celinu.
 
 Za kreiranje i transformaciju stabla Rozlin nudi dve mogućnosti: \textit{Factory} metodi su najbolji izbor kada je potrebno zameniti specifičan čvor, ili ukoliko postoji specifična lokacija na kojoj je potrebno dodati nov čvor. \textit{Rewriters} su najbolja opcija kada treba skenirati ceo projekat kako bi u kodu bili pronađeni (prepoznati) šabloni (eng. \textit{code patterns}) koje je potrebno zameniti.
 
@@ -210,7 +210,7 @@ U nastavku ove sekcije je prikazan osnovni algoritam, tako što je detaljno opis
 \subsection{Zamena for petlje u while petlju}
 \label{subsec:for}
 
-Iako se i \textit{for} i \textit{while} petljom postižu slični rezultati, odluka o tome koja će biti iskorišćena u mnogim slučajevima zavisi od preferenci (prioriteta) samog programera. Ipak, demonstracije radi, u ovoj sekciji će biti prikazana zamena \textit{for} petlje \textit{while} petljom. Ukoliko se u datom \textit{.cs} fajlu naiđe na konstrukciju oblika kao u listingu \ref{lst:forloop}, to će biti zamenjeno \textit{while} petljom kao što je prikazano u listingu \ref{lst:whileloop}.
+Iako se i \textit{for} i \textit{while} petljom postižu slični rezultati, odluka o tome koja će biti iskorišćena u mnogim slučajevima zavisi od prioriteta samog programera. Ipak, demonstracije radi, u ovoj sekciji će biti prikazana zamena \textit{for} petlje \textit{while} petljom. Ukoliko se u datom \textit{.cs} fajlu naiđe na konstrukciju oblika kao u listingu \ref{lst:forloop}, to će biti zamenjeno \textit{while} petljom kao što je prikazano u listingu \ref{lst:whileloop}.
 
 
 \CSharp
@@ -242,7 +242,7 @@ Kao i za svaku transformaciju, i ovde se koriste klase \textit{Checker} i \texti
 \label{fig:SwapForWithWhileChecker}
 \end{figure}
 
-Dalje, klasa \textit{RewriterForToWhile} (prikazana na slici \ref{fig:RewriterForToWhile}) nasleđuje klasu \textit{CSharpSyntaxRewriter} i redefiniše metod \textit{VisitForStatement}. Ovaj metod kao argument prima čvor i, krenuvši od njega, posećuje svaku \textit{for} naredbu. Kada naiđe na takvu naredbu, proverava da li u njoj postoji deklaracija (na primer \textit{int i=0}) i, ukoliko postoji, ona biva sačuvana u promenljivu \textit{declarationNode} kako bi kasnije bila postavljena iznad \textit{while} petje. Samo telo petlje se nalazi unutar \textit{syntaxNode.Statement}. Na osnovu ovoga, može se napraviti novi čvor koji predstavlja \textit{while} petlju. Najpre se proverava da li je for petlja imala neki uslov i, ukoliko jeste, onda se on postavlja za uslov \textit{while} petlje, a ukoliko nije, onda se za uslov \textit{while} petlje postavlja \textit{true}. Zatim se parsira telo \textit{for} petlje u \textit{while} (dodaje se inkrementiranje i slično) i postavljaju se \textit{;} tamo gde je to potrebno. Na kraju je napravljen novi čvor koji se sastoji od pomenute deklaracije promenjive i \textit{while} petlje - to je 'spojeno' i vraćeno kao jedan čvor. Implementirana je i pomoćna funkcija \textit{FixParenthesis} koja 'popravlja' zagrade pre kreiranja novog čvora.
+Dalje, klasa \textit{RewriterForToWhile} (prikazana na slici \ref{fig:RewriterForToWhile}) nasleđuje klasu \textit{CSharpSyntaxRewriter} i redefiniše metod \textit{VisitForStatement}. Ovaj metod kao argument prima čvor i, krenuvši od njega, posećuje svaku \textit{for} naredbu. Kada naiđe na takvu naredbu, proverava da li u njoj postoji deklaracija (na primer \textit{int i=0}) i, ukoliko postoji, ona biva sačuvana u promenljivu \textit{declarationNode} kako bi kasnije bila postavljena iznad \textit{while} petlje. Samo telo petlje se nalazi unutar \textit{syntaxNode.Statement}. Na osnovu ovoga, može se napraviti novi čvor koji predstavlja \textit{while} petlju. Najpre se proverava da li je for petlja imala neki uslov i, ukoliko jeste, onda se on postavlja za uslov \textit{while} petlje, a ukoliko nije, onda se za uslov \textit{while} petlje postavlja \textit{true}. Zatim se parsira telo \textit{for} petlje u \textit{while} (dodaje se inkrementiranje i slično) i postavljaju se \textit{;} tamo gde je to potrebno. Na kraju je napravljen novi čvor koji se sastoji od pomenute deklaracije promenjive i \textit{while} petlje - to je 'spojeno' i vraćeno kao jedan čvor. Implementirana je i pomoćna funkcija \textit{FixParenthesis} koja 'popravlja' zagrade pre kreiranja novog čvora.
 
 \begin{figure}[h!]
 \begin{center}
@@ -253,7 +253,7 @@ Dalje, klasa \textit{RewriterForToWhile} (prikazana na slici \ref{fig:RewriterFo
 \end{figure}
 
 
-\subsection{Zamena kljucne reci var u eksplicitni tip}
+\subsection{Zamena ključne reči var u eksplicitni tip}
 \label{subsec:var}
 
 

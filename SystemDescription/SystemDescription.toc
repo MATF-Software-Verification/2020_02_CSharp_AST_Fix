@@ -1,0 +1,11 @@
+\select@language {serbian}
+\contentsline {section}{\numberline {1}Opis problema}{3}{section.1}
+\contentsline {subsection}{\numberline {1.1}Refaktorisanje}{3}{subsection.1.1}
+\contentsline {subsection}{\numberline {1.2}Kori\IeC {\v s}\IeC {\'c}ene tehnologije}{3}{subsection.1.2}
+\contentsline {subsubsection}{\numberline {1.2.1}Rozlin}{3}{subsubsection.1.2.1}
+\contentsline {section}{\numberline {2}Opis arhitekture sistema}{4}{section.2}
+\contentsline {section}{\numberline {3}Opis re\IeC {\v s}enja problema}{4}{section.3}
+\contentsline {subsection}{\numberline {3.1}Zamena for petlje u while petlju}{5}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Zamena klju\IeC {\v c}ne re\IeC {\v c}i var u eksplicitni tip}{7}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}Zamena switch naredbe u if-else}{7}{subsection.3.3}
+\contentsline {subsection}{\numberline {3.4}Zamena ternarnog operatora u if-esle}{7}{subsection.3.4}
