@@ -6,7 +6,7 @@ Zadatak koji je rešavan u okviru ovog projekta je analiza koda u jeziku *C#*, d
 
 ## (1) Prevođenje i pokretanje projekta (neophodne biblioteke, alati i zavisnosti)
 
-Aplikacija je rađena u programskom jeziku *C#*, u *Visual Studio* okruženju, na *Linux* (*Ubuntu*) operativnom sistemu. Za pokretanje aplikacije potrebno je instalirati *Visual Studio* okruženje. Projekat je moguće uvesti u *Visual Studio* okruženje i pokrenuti aplikaciju pritiskom na tastere *Ctrl+F5*.
+Aplikacija je rađena u programskom jeziku *C#* uz korišćenje *Roslyn* *API*ja, u *Visual Studio* okruženju, na *Linux* (*Ubuntu*) operativnom sistemu. Za pokretanje aplikacije potrebno je instalirati *Visual Studio* okruženje. Projekat je moguće uvesti u *Visual Studio* okruženje i pokrenuti aplikaciju pritiskom na tastere *Ctrl+F5*.
 
 -------------------------------------
 
