@@ -158,19 +158,8 @@
 		\section{Opis arhitekture sistema}
 		\label{sec:opis_arhitekture_sistema}
 		
-		%TODO
-		U ovoj sekciji bice opisano ......... \textbf{TODO}
+		U ovoj sekciji je opisana struktura programa. Naime, sam program se sastoji iz glavnog \textit{.cs} fajla - \textit{Program.cs}, interfejsa \textit{IChecker.cs} i osam klasa - četiri \textit{čekera} i četiri \textit{prepisivača}. U nastavku su dati odgovarajući grafički prikazi koji ovo vizualizuju.
 		
-		\hfill
-		
-		%TODO
-		- \textbf{TODO} Opis osnovnih modula implementacije
-		%TODO
-		- \textbf{TODO} Reprezentacija sistema na visokom nivou
-		%TODO
-		- \textbf{TODO} Način na koji je program razložen na komponente
-		
-		\hfill
 		
 		Na slici \ref{fig:CSharpSyntaxRewriter} je prikazana hijerarhija klasa koje su korišćene za izvršavanje transformacija. Ono što je za sve implementirane klase zajedničko, jeste da sve one nasleđuju klasu \textit{CSharpSyntaxRewriter} i implementiraju metode u skladu sa transformacijom koju vrše.
 		
@@ -237,7 +226,8 @@
 		\end{lstlisting}
 		
 		
-		Kao i za svaku transformaciju, i ovde se koriste klase \textit{Checker} i \textit{Rewriter}. Klasa \textit{SwapForWithWhileChecker} je prikazana na slici \ref{fig:SwapForWithWhileChecker}. Ova klasa nasleđuje klasu \textit{IChecker} i u njoj je implementiran metod \textit{Check} koji kao argumente prima sintaksno stablo i semantički model. Unutar ovog metoda kreira se instanca klase \textit{RewriterForToWhile} nad kojom se poziva metod \textit{Visit} kome se prosleđuje koren datog stabla. Ovaj metod radi ???????? i kao povratnu vrednost ovaj metod vraća ?????? %TODO . 
+		Kao i za svaku transformaciju, i ovde se koriste klase \textit{Checker} i \textit{Rewriter}. Klasa \textit{SwapForWithWhileChecker} je prikazana na slici \ref{fig:SwapForWithWhileChecker}. Ova klasa nasleđuje klasu \textit{IChecker} i u njoj je implementiran metod \textit{Check} koji kao argumente prima sintaksno stablo i semantički model. Unutar ovog metoda kreira se instanca klase \textit{RewriterForToWhile} nad kojom se poziva metod \textit{Visit}, koji vrši obilazak stabla krenuvši od korena koji je prosleđen kao argument.
+		
 		Dodatno, na početku svakog čekera, navodi se opcija za argument komandne linije koju je potrebno uključiti za konkretnu transformaciju. U ovom slučaju to je "\textit{-forToWhile}".
 		
 		\begin{figure}[!h]
@@ -333,9 +323,8 @@
 		\end{lstlisting}
 		
 		
-		Slično kao u prethodnim podsekcijama, ovde se najpre metodom \textit{VisitSwitchStatement} obilaze sve \textit{switch} naredbe, gde se za svaku izdvaja izraz (eng. \textit{expression}) koji figuriše u \textit{switch} naredbi, kao i obeležja (eng. \textit{labels}) i naredbe (eng. \textit{statements}) koje su različite od \textit{break} naredbe. Nakon toga, kreira se novi čvor čija se vrednost postavlja na \textit{null}. Ukoliko unutar \textit{switch} naredbe postoji samo jedno obeležje i to obeležje je \textit{default}, onda se kreira \textit{if} naredba sa uslovom \textit{true} i to postaje vrednost novog čvora.
-		%TODO SyntaxFactory.Block(SyntaxFactory.ParseStatement(statements.ElementAt(0).Aggregate("", (x, y) => x.ToString() + " " + y.ToString())))).ToString());
-		Inače, ukoliko postoji više od jednog obeležja, poziva se privatna funkcija \textit{CreateIfStatement()} kojoj se prosleđuju izdvojeni izraz, obeležja i naredbe. Opisani metod \textit{VisitSwitchStatement()} je dat na slici \ref{fig:RewriterSwitchToIf_part1}.
+		Slično kao u prethodnim podsekcijama, ovde se najpre metodom \textit{VisitSwitchStatement} obilaze sve \textit{switch} naredbe, gde se za svaku izdvaja izraz (eng. \textit{expression}) koji figuriše u \textit{switch} naredbi, kao i obeležja (eng. \textit{labels}) i naredbe (eng. \textit{statements}) koje su različite od \textit{break} naredbe. Nakon toga, kreira se novi čvor čija se vrednost postavlja na \textit{null}. Ukoliko unutar \textit{switch} naredbe postoji samo jedno obeležje i to obeležje je \textit{default}, onda se kreira \textit{if} naredba sa uslovom \textit{true} i blokom naredbi koji sadrži sve naredbe iz default obeležja i to postaje vrednost novog čvora.
+		Inače, ukoliko postoji više od jednog obeležja, poziva se privatna funkcija \textit{CreateIfStatement()} kojoj se prosleđuju izdvojeni izraz, obeležja i naredbe. U ovoj funkciji najpre se izdvaja prvo obeležje, zatim sva obeležja osim prvog (ukoliko postoje) i njihove naredbe (ukoliko postoje). Nakon toga, kreira se \textit{if} naredba u zavisnosti od toga da li je prvo obeležje ustvari grupa više obeležja sa zajedničkim naredbama ili ne. Što se tiče \textit{else} grane, proverava se da li je osim prvog obeležja ostalo još neko obeležje (ispod njega) i ono ima bar jednu naredbu (neračunajući naredbu \textit{break}). Ukoliko je ovaj uslov ispunjen i pritom se tu nalazi i obeležje \textit{default}, kreiraće se \textit{else} grana sa blokom naredbi iz \textit{default} obeležja. Ukoliko je uslov ispunjen, ali se tu ne nalazi obeležje \textit{default}, onda se kreira \textit{else-if}, odnosno \textit{else} grana s tim da se ponovo poziva funkcija \textit{CreateIfStatement}. Ukoliko uslov nije ispunjen, znači da je to bilo poslednje obeležje i u tom slučaju će se vratiti \textit{null}. Opisani metod \textit{VisitSwitchStatement()} je dat na slici \ref{fig:RewriterSwitchToIf_part1}.
 		
 		
 		\begin{figure}[!htb]
