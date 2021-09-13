@@ -278,9 +278,7 @@
 		double a = i + 1.3;
 		\end{lstlisting}
 		
-		\par Slično kao u prethodnom primeru, postoji klasa koja implementira čeker - \textit{SwapVarWithExplicitTypeChecker}, i klasa koja implementira metod koji posećuje čvorove - \textit{RewriterVarToExplicitType} (Slika \ref{fig:RewriterVarToType}). U ovoj transformaciji, neophodno je bilo koristiti semantički model.
-		% TODO ANA
-		
+		\par Slično kao u prethodnom primeru, postoji klasa koja implementira čeker - \textit{SwapVarWithExplicitTypeChecker}, i klasa koja implementira metod koji posećuje čvorove - \textit{RewriterVarToExplicitType} (Slika \ref{fig:RewriterVarToType}). U ovoj transformaciji, posećuju se čvorovi koji su tipa \textit{LocalDeclarationStatement}, odnosno deklaracija promenljive. Kako bi se dobila informacija o tipu čvora, kod je neophodno analizirati na semantičkom nivou, pa je potrebno uključiti i semantički model. Metod \textit{VisitLocalDeclarationStatement} najpre iz semantičkog modela  pokupi tip implicitne naredbe. Sa dobijenim tipom i ostatkom naredbe koji ostaje isti kao i ranije kreira se nova \textit{LocalDeclarationStatement}, pritom zadržavajući formatiranje koje je korišćeno. Na kraju, vratća se kreirana deklaracija.
 		
 		\FloatBarrier
 		\begin{figure}[!htb]
@@ -358,7 +356,7 @@
 		
 		\subsection{Uklanjanje praznih naredbi}
 		\label{subsec:prazne}
-		Poslednji primer prikazuje ukljanjanje praznih naredbi. Prazna naredba, tj. tačka-zarez ( \textbf{;}), obično nastaje greškom, na primer kada se ostavi da bi se kasnije zamenila konkretnom naredbom, ali se to ne desi, ili greškom u kucanju (npr. ;;). Ponekad, programeri koriste praznu naredbu kao telo petlje. To nije dobra praksa, te se preporučuje izbegavanje ovakvog koda. U kodovima \ref{lst:empty} i \ref{lst:noempty} dat je primer ovakvih konstrukata i kako oni treba da izgledaju nakon tranformacije. Kad god se u kodu naiđe na praznu naredbu, ista se jednostavno eliminiše. 
+		Poslednji primer transformacije jeste ukljanjanje praznih naredbi. Prazna naredba, tj. tačka-zarez ( \textbf{;}), obično nastaje greškom, na primer kada se ostavi da bi se kasnije zamenila konkretnom naredbom, ali se to ne desi, ili greškom u kucanju (npr. ;;). Ponekad, programeri koriste praznu naredbu kao telo petlje. To nije dobra praksa, te se preporučuje izbegavanje ovakvog koda. U kodovima \ref{lst:empty} i \ref{lst:noempty} dat je primer ovakvih konstrukata i kako oni treba da izgledaju nakon tranformacije. Kad god se u kodu naiđe na praznu naredbu upotrebljenu u kontekstu u kom nije neophodna, ista se jednostavno eliminiše. 
 		
 		
 		\begin{lstlisting}[caption={Prazna naredba}, label=lst:empty]
@@ -392,7 +390,7 @@
 		\end{lstlisting}
 		
 		
-		\par Klase \textit{RemoveEmptyStatementsChecker} i \textit{RewriterRemoveEmptyStatements} implementirane su na sličan način kao i u svim prethodnim primerima. Na slici \ref{fig:RemoveEmptyRewriter} može se videti implementacija prepisivača. Metod \textit{VisitEmptyStatement} obilazi sve čvorove u stablu koji predstavljajju naredbu ;. Vrši se provera roditelja čvora - da li se naredba nalazi unutar petlje, \textit{if} ili \textit{else} naredbe. Ako je to slučaj, vraća prazan blok (otvorena i zatvorena vitičasta zagrada \{ \}). Inače, jednostavno vrati \textit{null} - praznina umesto ;. 
+		\par Klase \textit{RemoveEmptyStatementsChecker} i \textit{RewriterRemoveEmptyStatements} implementirane su na sličan način kao i u svim prethodnim primerima. Na slici \ref{fig:RemoveEmptyRewriter} može se videti implementacija prepisivača. Metod \textit{VisitEmptyStatement} obilazi sve čvorove u stablu koji predstavljajju prazne naredbe. Vrši se provera vrste roditelja čvora, tj. provera da li se naredba nalazi unutar petlje, \textit{if} ili \textit{else} naredbe. Ako je to slučaj, vraća prazan blok (otvorena i zatvorena vitičasta zagrada \{ \}). Inače, jednostavno vrati \textit{null} - uklanja se ; . 
 		
 		\begin{figure}[!htb]
 			\begin{center}

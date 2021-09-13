@@ -19,10 +19,6 @@ namespace ConsoleApp
             var x = 3;
             var y = 11.0;
 
-            //
-            var z = x > y ? x - y : y - x;
-            Console.WriteLine(z);
-            //
 
             for (int i = 0; i < Limit(2, values); i++)
             {
