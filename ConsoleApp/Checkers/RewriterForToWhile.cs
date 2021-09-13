@@ -33,24 +33,6 @@ namespace ConsoleApp
             }
             return statement;
         }
-
-        public bool FindSymbolDeclarationsInAncestors(CSharpSyntaxNode currentNode, string symbolToFind)
-        {
-
-            var show =currentNode
-                .Parent.ChildNodes();
-            return currentNode
-                .Parent.ChildNodes() // get direct siblings
-                .SelectMany(node => // find different declarations
-                    (node as VariableDeclarationSyntax)?.Variables.Select(v => v.Identifier.ValueText)
-                    ?? (node as FieldDeclarationSyntax)?.Declaration?.Variables.Select(v => v.Identifier.ValueText)
-                    ?? (node as LocalDeclarationStatementSyntax)?.Declaration?.Variables.Select(v => v.Identifier.ValueText)
-                    ?? new[] {
-                (node as PropertyDeclarationSyntax)?.Identifier.ValueText,
-                (node as MethodDeclarationSyntax)?.Identifier.ValueText,
-                (node as ClassDeclarationSyntax)?.Identifier.ValueText,
-                        })
-                .Any(member => string.Equals(member, symbolToFind));
-        }
+      
     }
 }
