@@ -2,6 +2,7 @@ using ConsoleApp.Checkers;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Threading.Tasks;
 
 namespace Tests
@@ -17,14 +18,14 @@ namespace Tests
         public void Setup()
         {
             inputText = @"
-            using System;
-            static void Main(string[] args)
-            {
-                for (int j = 0; j <= 10; j++) ;
-
-                for (; ; );
-                Console.WriteLine(2);;
-            }";
+using System;
+static void Main(string[] args)
+{
+    for (int j = 0; j <= 10; j++) ;
+    int x = 3;;
+    if (x < 5) ;
+    Console.WriteLine(2);;
+}";
 
             SyntaxTree = CSharpSyntaxTree.ParseText(inputText);
 
@@ -45,15 +46,25 @@ namespace Tests
         {
             RemoveEmptyStatementsChecker checker = new RemoveEmptyStatementsChecker();
             SyntaxNode newTree = checker.Check(SyntaxTree, SemanticModel);
-            var ret = newTree.ToFullString();
+            //var ret = newTree.ToFullString();
+            var tree1 = CSharpSyntaxTree.ParseText(newTree.ToString());
+            var root = tree1.GetRoot().NormalizeWhitespace();
+            var ret = root.ToFullString();
 
-            string correctResult = @"
-            using System;
-            static void Main(string[] args)
-            {
-                for (int j = 0; j <= 10; j++) {}
-                for (; ; ){}                Console.WriteLine(2);
-            
+            string correctResult = @"using System;
+
+static void Main(string[] args)
+{
+    for (int j = 0; j <= 10; j++)
+    {
+    }
+
+    int x = 3;
+    if (x < 5)
+    {
+    }
+
+    Console.WriteLine(2);
 }";
 
             Assert.AreEqual(correctResult, ret);
@@ -61,5 +72,3 @@ namespace Tests
         }
     }
 }
-
-
