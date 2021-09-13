@@ -8,7 +8,7 @@ using System.Text;
 
 namespace ConsoleApp.Checkers
 {
-    class RewriterSwitchToIf : CSharpSyntaxRewriter
+    class RewriterSwitchToIfElse : CSharpSyntaxRewriter
     {
         public override SyntaxNode VisitSwitchStatement(SwitchStatementSyntax node)
         {
@@ -38,7 +38,7 @@ namespace ConsoleApp.Checkers
             var labelValues = labels.Select(l => l.Select(lb => lb.Kind() == SyntaxKind.DefaultSwitchLabel ? "true" : ((CaseSwitchLabelSyntax)lb).Value.ToString()));
             var labelsWithoutCurrent = labels.Skip(1);
             var statementsWithoutCurrent = statements.Skip(1);
-            var wat = statementsWithoutCurrent.FirstOrDefault().FirstOrDefault();
+
             IfStatementSyntax ifStatement = SyntaxFactory.IfStatement(
                 SyntaxFactory.ParseExpression(
                     labelValues.ElementAt(0).Count() != 1 

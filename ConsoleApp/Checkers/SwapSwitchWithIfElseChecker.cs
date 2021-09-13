@@ -6,11 +6,11 @@ using System.Text;
 namespace ConsoleApp.Checkers
 {
     [CommandLineArgument("-switchToIf")]
-    public class SwapSwitchToIf : IChecker
+    public class SwapSwitchWithIfElseChecker : IChecker
     {
         public SyntaxNode Check(SyntaxTree tree, SemanticModel semanticModel)
         {
-            var rewritten = new RewriterSwitchToIf().Visit(tree.GetRoot());
+            var rewritten = new RewriterSwitchToIfElse().Visit(tree.GetRoot());
             return rewritten;
         }
     }
