@@ -20,6 +20,8 @@
 %\newtheorem{primer}{Primer}[section]
 
 
+\usepackage{adjustbox}
+
 %\definecolor{mygreen}{rgb}{0,0.6,0}
 %\definecolor{mygray}{rgb}{0.5,0.5,0.5}
 %\definecolor{mymauve}{rgb}{0.58,0,0.82}
@@ -38,7 +40,7 @@
 \newcommand{\CSharp}{
 	\lstset{
 		language=Java,
-		basicstyle=\ttfamily\small,
+		basicstyle=\ttfamily\footnotesize,
 		keywordstyle=\color{jpurple}\bfseries,
 		stringstyle=\color{red},
 		commentstyle=\color{verde},
@@ -60,7 +62,7 @@
 
 \lstset{ 
 	backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}; should come as last argument
-	basicstyle=\scriptsize\ttfamily,        % the size of the fonts that are used for the code
+	basicstyle=\tiny\ttfamily,        % the size of the fonts that are used for the code
 	breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
 	breaklines=true,                 % sets automatic line breaking
 	captionpos=b,                    % sets the caption-position to bottom
@@ -83,7 +85,7 @@
 	showtabs=false,                  % show tabs within strings adding particular underscores
 	stepnumber=2,                    % the step between two line-numbers. If it's 1, each line will be numbered
 	stringstyle=\color{mymauve},     % string literal style
-	tabsize=2,	                   % sets default tabsize to 2 spaces
+	tabsize=1,	                   % sets default tabsize to 2 spaces
 	title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
 }
 
@@ -213,7 +215,7 @@
 		\subsection{Zamena for petlje u while petlju}
 		\label{subsec:for}
 		
-		Iako se i \textit{for} i \textit{while} petljom postižu slični rezultati, odluka o tome koja će biti iskorišćena u mnogim slučajevima zavisi od prioriteta samog programera. Ipak, demonstracije radi, u ovoj sekciji će biti prikazana zamena \textit{for} petlje \textit{while} petljom. Ukoliko se u datom \textit{.cs} fajlu naiđe na konstrukciju oblika kao u listingu \ref{lst:forloop}, to će biti zamenjeno \textit{while} petljom kao što je prikazano u listingu \ref{lst:whileloop}.
+		Iako se i \textit{for} i \textit{while} petljom postižu slični rezultati, odluka o tome koja će biti iskorišćena u mnogim slučajevima zavisi od prioriteta samog programera. Ipak, demonstracije radi, u ovoj sekciji će biti prikazana zamena \textit{for} petlje \textit{while} petljom. Ukoliko se u datom \textit{.cs} fajlu naiđe na konstrukciju oblika kao u kodu \ref{lst:forloop}, to će biti zamenjeno \textit{while} petljom kao što je prikazano u kodu \ref{lst:whileloop}.
 		
 		
 		\CSharp
@@ -235,13 +237,13 @@
 		\end{lstlisting}
 		
 		
-		Kao i za svaku transformaciju, i ovde se koriste klase \textit{Checker} i \textit{Rewriter}. Klasa \textit{SwapForWithWhileChecker} je prikazana na slici \ref{fig:SwapForWithWhileChecker}. Ova klasa nasleđuje klasu \textit{IChecker} i u njoj je implementiran metod \textit{Check} koji kao argumente prima sintaksno stablo i semantički model. Unutar ovog metoda kreira se instanca klase \textit{RewriterForToWhile} nad kojom se poziva metod \textit{Visit} kome se prosleđuje koren datog stabla. Ovaj metod radi ???????? i kao povratnu vrednost ovaj metod vraća ?????? %TODO
-		
+		Kao i za svaku transformaciju, i ovde se koriste klase \textit{Checker} i \textit{Rewriter}. Klasa \textit{SwapForWithWhileChecker} je prikazana na slici \ref{fig:SwapForWithWhileChecker}. Ova klasa nasleđuje klasu \textit{IChecker} i u njoj je implementiran metod \textit{Check} koji kao argumente prima sintaksno stablo i semantički model. Unutar ovog metoda kreira se instanca klase \textit{RewriterForToWhile} nad kojom se poziva metod \textit{Visit} kome se prosleđuje koren datog stabla. Ovaj metod radi ???????? i kao povratnu vrednost ovaj metod vraća ?????? %TODO . 
+		Dodatno, na početku svakog čekera, navodi se opcija za argument komandne linije koju je potrebno uključiti za konkretnu transformaciju. U ovom slučaju to je "\textit{-forToWhile}".
 		
 		\begin{figure}[!h]
 			\begin{center}
 				
-				\includegraphics[scale=0.70]{images/SwapForWithWhileChecker.png}
+				\includegraphics[scale=0.65]{images/SwapForWithWhileChecker2.png}
 			\end{center}
 			\caption{Klasa \textit{SwapForWithWhileChecker}}
 			\label{fig:SwapForWithWhileChecker}
@@ -262,7 +264,7 @@
 		
 		\subsection{Zamena ključne reči var u eksplicitni tip}
 		\label{subsec:var}
-		Pri lokalnoj deklaraciji promenljivih u jeziku C\#, promenljivoj se može dodeliti implicitni tip navođenjem ključne reči \textit{var}.  U nekim slučajevima, takav kod je preporučljivo refaktorisati promenom deklaracije takvih promenljivih u eksplicitan tip - npr. kada nije neophodno inicijalizovati promenljivu u samoj deklaraciji, ili jednostavno da bi se dobio čitljiviji kod. U nastavku su prikazani oblici sintaksnog konstrukta pre i nakon zamene. 
+		Pri lokalnoj deklaraciji promenljivih u jeziku C\#, promenljivoj se može dodeliti implicitni tip navođenjem ključne reči \textit{var}.  U nekim slučajevima, takav kod je preporučljivo refaktorisati promenom deklaracije takvih promenljivih u eksplicitan tip - npr. kada nije neophodno inicijalizovati promenljivu u samoj deklaraciji, ili jednostavno da bi se dobio čitljiviji kod. U nastavku (kod \ref{lst:var} i \ref{lst:explicit}) su prikazani oblici sintaksnog konstrukta pre i nakon zamene. 
 		\CSharp
 		\begin{lstlisting}[caption={Var promenljiva}, label=lst:var]
 		var i = 5;
@@ -276,13 +278,25 @@
 		double a = i + 1.3;
 		\end{lstlisting}
 		
-		\par Slično kao u prethodnom primeru, 
+		\par Slično kao u prethodnom primeru, postoji klasa koja implementira čeker - \textit{SwapVarWithExplicitTypeChecker}, i klasa koja implementira metod koji posećuje čvorove - \textit{RewriterVarToExplicitType} (Slika \ref{fig:RewriterVarToType}). U ovoj transformaciji, neophodno je bilo koristiti semantički model.
 		% TODO ANA
+		
+		
+		\FloatBarrier
+		\begin{figure}[!htb]
+			\begin{center}
+				\includegraphics[scale=0.5]{images/RewriterVarToType.png}
+			\end{center}
+			\caption{Klasa \textit{RewriterVarToExplicitType}}
+			\label{fig:RewriterVarToType}
+		\end{figure}
+		\FloatBarrier
 		
 		\subsection{Zamena switch naredbe u if-else}
 		\label{subsec:switch}
 		
-		Naredbe \textit{switch} i \textit{if-else} imaju sličnu ulogu, ali je u nekim situacijama ispravnije iskoristiti jednu odnosno drugu. Na primer, ukoliko je potrebno ispitati samo jedan uslov (i u skladu sa njegovom vrednošću izvršiti odgovarajuće naredbe), preporučuje se korišćenje \textit{if-else} naredbe. Ukoliko se u kodu naiđe na konstrukte poput prikazanog na listingu \ref{lst:switch}, ova transformacija to konvertuje u oblik prikazan na listingu \ref{lst:ifelse}.
+		
+		Naredbe \textit{switch} i \textit{if-else} imaju sličnu ulogu, ali je u nekim situacijama ispravnije iskoristiti jednu odnosno drugu. Na primer, ukoliko je potrebno ispitati samo jedan uslov (i u skladu sa njegovom vrednošću izvršiti odgovarajuće naredbe), preporučuje se korišćenje \textit{if-else} naredbe. Ukoliko se u kodu naiđe na konstrukte poput prikazanog u kodu \ref{lst:switch}, ova transformacija to konvertuje u oblik prikazan u kodu \ref{lst:ifelse}.
 		
 		
 		\CSharp
@@ -322,9 +336,9 @@
 		
 		
 		Slično kao u prethodnim podsekcijama, ovde se najpre metodom \textit{VisitSwitchStatement} obilaze sve \textit{switch} naredbe, gde se za svaku izdvaja izraz (eng. \textit{expression}) koji figuriše u \textit{switch} naredbi, kao i obeležja (eng. \textit{labels}) i naredbe (eng. \textit{statements}) koje su različite od \textit{break} naredbe. Nakon toga, kreira se novi čvor čija se vrednost postavlja na \textit{null}. Ukoliko unutar \textit{switch} naredbe postoji samo jedno obeležje i to obeležje je \textit{default}, onda se kreira \textit{if} naredba sa uslovom \textit{true} i to postaje vrednost novog čvora.
-%TODO SyntaxFactory.Block(SyntaxFactory.ParseStatement(statements.ElementAt(0).Aggregate("", (x, y) => x.ToString() + " " + y.ToString())))).ToString());
-Inače, ukoliko postoji više od jednog obeležja, poziva se privatna funkcija \textit{CreateIfStatement()} kojoj se prosleđuju izdvojeni izraz, obeležja i naredbe. Opisani metod \textit{VisitSwitchStatement()} je dat na slici \ref{fig:RewriterSwitchToIf_part1}.
-
+		%TODO SyntaxFactory.Block(SyntaxFactory.ParseStatement(statements.ElementAt(0).Aggregate("", (x, y) => x.ToString() + " " + y.ToString())))).ToString());
+		Inače, ukoliko postoji više od jednog obeležja, poziva se privatna funkcija \textit{CreateIfStatement()} kojoj se prosleđuju izdvojeni izraz, obeležja i naredbe. Opisani metod \textit{VisitSwitchStatement()} je dat na slici \ref{fig:RewriterSwitchToIf_part1}.
+		
 		
 		\begin{figure}[!htb]
 			\begin{center}
@@ -342,26 +356,50 @@ Inače, ukoliko postoji više od jednog obeležja, poziva se privatna funkcija \
 			\label{fig:RewriterSwitchToIf_part2}
 		\end{figure}
 		
-		
 		\subsection{Uklanjanje praznih naredbi}
 		\label{subsec:prazne}
-		Poslednji primer prikazuje ukljanjanje praznih naredbi. Kad god se u kodu naiđe na praznu naredbu, ista se jednostavno eliminiše. 
+		Poslednji primer prikazuje ukljanjanje praznih naredbi. Prazna naredba, tj. tačka-zarez ( \textbf{;}), obično nastaje greškom, na primer kada se ostavi da bi se kasnije zamenila konkretnom naredbom, ali se to ne desi, ili greškom u kucanju (npr. ;;). Ponekad, programeri koriste praznu naredbu kao telo petlje. To nije dobra praksa, te se preporučuje izbegavanje ovakvog koda. U kodovima \ref{lst:empty} i \ref{lst:noempty} dat je primer ovakvih konstrukata i kako oni treba da izgledaju nakon tranformacije. Kad god se u kodu naiđe na praznu naredbu, ista se jednostavno eliminiše. 
 		
-		% TODO ANA
 		
 		\begin{lstlisting}[caption={Prazna naredba}, label=lst:empty]
-		for (int j = 0; j <= 10; j++) ;
-		if (true) ;
+		void DoSomething()
+		{
+		; 
+		}
+		
+		void DoSomethingElse()
+		{
+		Console.WriteLine("Hello, world!");; 
+		
+		for (int i = 0; i < 3; Console.WriteLine(i), i++); 
+		}
 		\end{lstlisting}
+		
 		
 		\begin{lstlisting}[caption={Uklonjena prazna naredba}, label=lst:noempty]
-		for (int j = 0; j <= 10; j++)
+		void DoSomething()
 		{
 		}
-		if (true) 
+		
+		void DoSomethingElse()
 		{
+		Console.WriteLine("Hello, world!");
+		
+		for (int i = 0; i < 3; Console.WriteLine(i), i++)
+		{
+		}
 		}
 		\end{lstlisting}
 		
+		
+		\par Klase \textit{RemoveEmptyStatementsChecker} i \textit{RewriterRemoveEmptyStatements} implementirane su na sličan način kao i u svim prethodnim primerima. Na slici \ref{fig:RemoveEmptyRewriter} može se videti implementacija prepisivača. Metod \textit{VisitEmptyStatement} obilazi sve čvorove u stablu koji predstavljajju naredbu ;. Vrši se provera roditelja čvora - da li se naredba nalazi unutar petlje, \textit{if} ili \textit{else} naredbe. Ako je to slučaj, vraća prazan blok (otvorena i zatvorena vitičasta zagrada \{ \}). Inače, jednostavno vrati \textit{null} - praznina umesto ;. 
+		
+		\begin{figure}[!htb]
+			\begin{center}
+				\includegraphics[scale=0.7]{images/RewriterEmpty.png}
+			\end{center}
+			\caption{Klasa \textit{RewriterRemoveEmptyStatements}}
+			\label{fig:RemoveEmptyRewriter}
+		\end{figure}
 		
 	\end{document}

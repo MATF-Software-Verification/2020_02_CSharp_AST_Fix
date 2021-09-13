@@ -17,13 +17,14 @@ namespace Tests
         public void Setup()
         {
             inputText = @"
-using System;
- static void Main(string[] args)
- {
-for (int j = 0; j <= 10; j++) ;
+            using System;
+            static void Main(string[] args)
+            {
+                for (int j = 0; j <= 10; j++) ;
 
-for (; ; );
- }";
+                for (; ; );
+                Console.WriteLine(2);;
+            }";
 
             SyntaxTree = CSharpSyntaxTree.ParseText(inputText);
 
@@ -47,14 +48,18 @@ for (; ; );
             var ret = newTree.ToFullString();
 
             string correctResult = @"
-using System;
- static void Main(string[] args)
- {
-for (int j = 0; j <= 10; j++) {}
-for (; ; ){} }";
+            using System;
+            static void Main(string[] args)
+            {
+                for (int j = 0; j <= 10; j++) {}
+                for (; ; ){}                Console.WriteLine(2);
+            
+}";
 
             Assert.AreEqual(correctResult, ret);
 
         }
     }
 }
+
+

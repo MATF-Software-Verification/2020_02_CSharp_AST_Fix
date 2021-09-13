@@ -21,6 +21,7 @@ namespace empty_statements
                 ;
                 //Empty Statement
             }
+            Console.WriteLine("Hello, world!");;
             Console.WriteLine("i = {0}", i);
             Console.ReadLine();
 
