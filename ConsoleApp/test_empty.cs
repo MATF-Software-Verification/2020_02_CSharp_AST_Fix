@@ -5,7 +5,7 @@ using System.Text;
 
 namespace empty_statements
 {
-    class Program
+    class Program1
     {
         public bool print()
         {
@@ -15,7 +15,7 @@ namespace empty_statements
         static void Test(string[] args)
         {
             int i = 0;
-            Program p = new Program();
+            Program1 p = new Program1();
             while (p.print())
             {
                 ;
