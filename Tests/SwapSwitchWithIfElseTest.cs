@@ -16,26 +16,27 @@ namespace Tests
         [TestInitialize]
         public void Setup()
         {
-            inputText = @"
-using System;
-static void Main(string[] args)
-{
-    char ch = 'i';
+            inputText = @"using System;
 
-    switch (ch) {
-        case 'a':
-        case 'e':
-        case 'i':
-        case 'o':
-        case 'u':
-            Console.WriteLine('Vowel');
-            break;
-        default:
-            Console.WriteLine('Not a vowel');
-            break;
+namespace ConsoleApp
+{
+    class test_switch_02
+    {
+        public void test()
+        {
+            int n = 1;
+            switch (n)
+            {
+                case 1:
+                    Console.WriteLine(1);
+                    break;
+                default:
+                    Console.WriteLine(0);
+                    break;
+            }   
+        }
     }
-}
-";
+}";
 
             SyntaxTree = CSharpSyntaxTree.ParseText(inputText);
 
@@ -62,20 +63,25 @@ static void Main(string[] args)
             var ret = root.ToFullString();
 
             string correctResult = @"using System;
-static void Main(string[] args)
-{
-    char ch = 'i';
 
-    if (ch == ch == ch == ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u')
+namespace ConsoleApp
+{
+    class test_switch_02
     {
-        Console.WriteLine('Vowel');
+        public void test()
+        {
+            int n = 1;
+            if (n == 1)
+            {
+                Console.WriteLine(1);
+            }
+            else
+            {
+                Console.WriteLine(0);
+            }
+        }
     }
-    else
-    {
-        Console.WriteLine('Not a vowel');
-    }
-}
-";
+}";
 
             Assert.AreEqual(correctResult, ret);
 
