@@ -282,7 +282,7 @@
 		\subsection{Zamena switch naredbe u if-else}
 		\label{subsec:switch}
 		
-		Naredbe \textit{switch} i \textit{if-else} imaju sličnu ulogu, ali je u nekim situacijama ispravnije iskoristiti jednu odnosno drugu. Na primer, ukoliko je potrebno ispiati samo jedan uslov (i u skladu sa njegovom vrednošću izvršiti odgovarajuće naredbe), preporučuje se korišćenje \textit{if-else} naredbe. Ukoliko se u kodu naiđe na konstrukte poput prikazanog na listingu \ref{lst:switch}, ova transformacija to konvertuje u oblik prikazan na listingu \ref{lst:ifelse}.
+		Naredbe \textit{switch} i \textit{if-else} imaju sličnu ulogu, ali je u nekim situacijama ispravnije iskoristiti jednu odnosno drugu. Na primer, ukoliko je potrebno ispitati samo jedan uslov (i u skladu sa njegovom vrednošću izvršiti odgovarajuće naredbe), preporučuje se korišćenje \textit{if-else} naredbe. Ukoliko se u kodu naiđe na konstrukte poput prikazanog na listingu \ref{lst:switch}, ova transformacija to konvertuje u oblik prikazan na listingu \ref{lst:ifelse}.
 		
 		
 		\CSharp
@@ -305,7 +305,6 @@
 		\end{lstlisting}
 		
 		
-		%TODO
 		\CSharp
 		\begin{lstlisting}[caption={If-else naredba}, label=lst:ifelse]
 		int k = 2;
@@ -322,14 +321,16 @@
 		\end{lstlisting}
 		
 		
-		
-		Slično kao u prethodnim podsekcijama, ovde se najpre metodom \textit{VisitSwitchStatement} obilaze sve \textit{switch} naredbe, a zatim se izdvaja izraz (eng. \textit{expression}) koji figuriše u \textit{switch} naredbi, kao i naredbe koje su različite od \textit{break} naredbe.
+		Slično kao u prethodnim podsekcijama, ovde se najpre metodom \textit{VisitSwitchStatement} obilaze sve \textit{switch} naredbe, gde se za svaku izdvaja izraz (eng. \textit{expression}) koji figuriše u \textit{switch} naredbi, kao i obeležja (eng. \textit{labels}) i naredbe (eng. \textit{statements}) koje su različite od \textit{break} naredbe. Nakon toga, kreira se novi čvor čija se vrednost postavlja na \textit{null}. Ukoliko unutar \textit{switch} naredbe postoji samo jedno obeležje i to obeležje je \textit{default}, onda se kreira \textit{if} naredba sa uslovom \textit{true} i to postaje vrednost novog čvora.
+%TODO SyntaxFactory.Block(SyntaxFactory.ParseStatement(statements.ElementAt(0).Aggregate("", (x, y) => x.ToString() + " " + y.ToString())))).ToString());
+Inače, ukoliko postoji više od jednog obeležja, poziva se privatna funkcija \textit{CreateIfStatement()} kojoj se prosleđuju izdvojeni izraz, obeležja i naredbe. Opisani metod \textit{VisitSwitchStatement()} je dat na slici \ref{fig:RewriterSwitchToIf_part1}.
+
 		
 		\begin{figure}[!htb]
 			\begin{center}
 				\includegraphics[scale=0.44]{images/RewriterSwitchToIf_part1.png}
 			\end{center}
-			\caption{Klasa \textit{RewriterSwitchToIf}}
+			\caption{Klasa \textit{RewriterSwitchToIf}, metod \textit{VisitSwitchStatement()}}
 			\label{fig:RewriterSwitchToIf_part1}
 		\end{figure}
 		
@@ -337,7 +338,7 @@
 			\begin{center}
 				\includegraphics[scale=0.44]{images/RewriterSwitchToIf_part2.png}
 			\end{center}
-			\caption{Klasa \textit{RewriterSwitchToIf} - nastavak}
+			\caption{Klasa \textit{RewriterSwitchToIf}, funkcija \textit{CreateIfStatement()}}
 			\label{fig:RewriterSwitchToIf_part2}
 		\end{figure}
 		
