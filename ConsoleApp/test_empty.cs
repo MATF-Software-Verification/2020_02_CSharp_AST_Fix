@@ -31,8 +31,6 @@ namespace empty_statements
 
             for (int j = 0; j <= 10; j++) ;
             for (; ; );
-
-
         }
 
         static void Mtestain(string[] args)
@@ -44,8 +42,6 @@ namespace empty_statements
                 if (true) ; else;
             else;
             //code
-
-
 
             int day = 4;
             switch (day)
