@@ -2,7 +2,7 @@
   "profiles": {
     "ConsoleApp": {
       "commandName": "Project",
-      "commandLineArgs": "-switchToIf"
+      "commandLineArgs": "-removeEmpty -forToWhile -varToType -switchToIf"
     }
   }
 }
